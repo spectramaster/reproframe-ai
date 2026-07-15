@@ -4,6 +4,8 @@
 
 **Live app:** [reproframe-ai.onrender.com](https://reproframe-ai.onrender.com)
 
+**Demo:** [2:45 public-run walkthrough](https://youtu.be/tocmG6Ws6fc)
+
 ![ReproFrame AI generate-evaluate-retry-verify workflow](assets/devpost-cover.png)
 
 ReproFrame turns a bounded set of evidence-backed claims into a visual abstract and

@@ -64,7 +64,7 @@ technical educators who need generated visuals without losing claim fidelity.
 
 ### M5 — submission (July 29–August 2)
 
-- [ ] Record a real three-minute demo: problem → generation → failed check → retry → B2 proof.
+- [x] Record a real three-minute demo: problem → generation → failed check → retry → B2 proof.
 - [x] Prepare Devpost copy mapped directly to all four judging criteria.
 - [x] List exact providers/models and meaningful Genblaze/B2 usage.
 - [x] Submit at least 24 hours before the deadline and verify the final public page.

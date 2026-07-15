@@ -6,6 +6,8 @@ and contains no credentials.
 ## Public Render + Gemini + Genblaze + Backblaze B2 run
 
 - Live app: <https://reproframe-ai.onrender.com>
+- Demo video: <https://youtu.be/tocmG6Ws6fc> (2:45, unlisted, publicly accessible)
+- Devpost submission: <https://devpost.com/software/reproframe-ai> (`Submitted`, 5/5 steps)
 - UTC created at: `2026-07-15T19:40:09.927676Z`
 - Run ID: `7e65b640-a45d-4c91-bc47-276b4fdc27a5`
 - Deployed Git commit: `fcc6d7a1dafb62cb8df3b4d9572eb18048048af5`

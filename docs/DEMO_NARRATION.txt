@@ -1,13 +1,19 @@
 Meet ReproFrame AI: scientific visuals you can verify, not just admire.
 
-The workflow starts with an evidence-bound brief. A researcher supplies the audience, supported claims, exact labels, forbidden content, and a visual direction. Those constraints become executable checks instead of disappearing inside a prompt.
+Generative media is easy to create, but difficult to audit. A polished scientific figure can silently add an unsupported claim, omit a required label, or become impossible to reproduce after a prompt revision. ReproFrame changes the unit of work from a disposable image to an evidence-bound run.
 
-Generation is orchestrated through a Genblaze AgentLoop. Each candidate is evaluated deterministically. If a required label is missing or prohibited content appears, the feedback is attached to the next attempt. Accepted SVG is sanitized before rendering.
+The public application starts with a visual brief. A researcher provides an audience, exact evidence-backed claims, mandatory labels, prohibited elements, and a visual direction. These constraints become executable checks. They do not disappear inside a prompt.
 
-This live interface shows the same control boundary in deterministic proof mode. One click creates the visual, reports the guardrail score and attempt count, and exposes both the asset and its manifest.
+Generation is orchestrated by a real Genblaze AgentLoop. Google Gemini creates a self-contained SVG candidate. ReproFrame then checks exact labels, exact required claims, prohibited content, content hashes, and safe SVG structure. An optional Gemini visual reviewer checks legibility, hierarchy, overlap, and visual separation. Deterministic checks always remain mandatory.
 
-In our verified credentialed run, a free-tier Gemini text model generated this self-contained SVG. It passed with a score of one point zero in one attempt. Backblaze B2 stored three encrypted artifacts: the candidate, Genblaze provenance, and the final SHA-256 manifest.
+This is a live run from the public Docker deployment. Attempt one scored eighty-three percent. It included the workflow labels, but failed because two evidence-backed claims were not exact. Genblaze preserved the failed candidate and evaluation, attached explicit feedback, and created attempt two. The second candidate scored one hundred percent, passed every visual-review check, and became the accepted output.
 
-The GMI Seedream adapter is authenticated and ready when generation credits are available. Provider and model metadata are always recorded honestly.
+The interface makes that process visible. Judges can compare both attempts, inspect the final asset and manifest, see the exact SHA-two-fifty-six digest, and download a portable proof bundle. Human acceptance is a separate token-protected decision, because automatic checks do not pretend to establish scientific truth.
 
-ReproFrame AI makes generative media content-addressed, evidence constrained, and replayable. The full source is available on GitHub.
+Backblaze B2 is the durable system of record, not a final-output attachment. This run stored nine private objects: the input brief, two SVG candidates, two evaluation records, two Genblaze manifests, the final selection, and the canonical ReproFrame manifest. The application exposes those private artifacts only through a narrow run-scoped proxy, so credentials and signed storage URLs never enter the browser or the manifest.
+
+Verification re-fetches the stored bytes. For this public run, the canonical manifest is valid, both asset hashes match, both Genblaze manifests validate, and there are zero errors. The ten-file evidence archive also passes a complete ZIP integrity test. These are narrow reproducibility facts, not a broad claim about model quality.
+
+The implementation is a Python and FastAPI service in a digest-pinned Docker image, running as a non-root user. The repository includes twelve passing tests, green GitHub Actions, a secret scan, abuse limits, structured errors, a five-case deterministic benchmark, and an offline fixture provider. The GMI Seedream adapter is implemented and authenticated, while the verified public path uses Gemini because the GMI account currently has no generation credits.
+
+ReproFrame AI makes generative media evidence-constrained, content-addressed, replayable, and honest about what was actually verified. Try the live app, inspect the public run, and review the complete source on GitHub.
