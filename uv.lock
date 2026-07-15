@@ -565,6 +565,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "fastapi" },
+    { name = "genblaze-core" },
     { name = "jinja2" },
     { name = "pydantic-settings" },
     { name = "python-multipart" },
@@ -574,7 +575,6 @@ dependencies = [
 [package.optional-dependencies]
 backblaze = [
     { name = "boto3" },
-    { name = "genblaze-core" },
     { name = "genblaze-gmicloud" },
     { name = "genblaze-s3" },
 ]
@@ -588,7 +588,7 @@ dev = [
 requires-dist = [
     { name = "boto3", marker = "extra == 'backblaze'", specifier = ">=1.39,<2" },
     { name = "fastapi", specifier = ">=0.116,<1" },
-    { name = "genblaze-core", marker = "extra == 'backblaze'", specifier = "==0.3.4" },
+    { name = "genblaze-core", specifier = "==0.3.4" },
     { name = "genblaze-gmicloud", marker = "extra == 'backblaze'", specifier = "==0.3.2" },
     { name = "genblaze-s3", marker = "extra == 'backblaze'", specifier = "==0.3.4" },
     { name = "httpx", marker = "extra == 'dev'", specifier = ">=0.28,<1" },

@@ -35,8 +35,8 @@ technical educators who need generated visuals without losing claim fidelity.
 
 ### M1 — real Genblaze workflow (July 16–18)
 
-- [ ] Implement Genblaze image generation through GMI Cloud.
-- [ ] Drive generate → evaluate → retry with `AgentLoop` and manifest lineage.
+- [x] Implement the credential-gated Genblaze image adapter for GMI Cloud.
+- [x] Drive generate → evaluate → retry with `AgentLoop` and manifest lineage.
 - [ ] Add a model-based visual evaluator behind an explicit provider interface.
 - [ ] Preserve deterministic checks as a mandatory pre-acceptance gate.
 
@@ -83,4 +83,3 @@ technical educators who need generated visuals without losing claim fidelity.
 4. A failed quality check visibly changes the next attempt.
 5. Every numeric claim in the submission is reproduced by a checked-in evaluation command.
 6. The three-minute demo shows real evidence, not slides or mocked cloud screenshots.
-
