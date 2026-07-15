@@ -1,2 +1,1 @@
 gradio>=6.0,<7
-reproframe-ai @ git+https://github.com/spectramaster/reproframe-ai.git@codex/reproframe-foundation
