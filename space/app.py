@@ -8,6 +8,19 @@ from uuid import uuid4
 
 import gradio as gr
 
+try:
+    import spaces
+except ImportError:  # Keep the standalone demo runnable outside Hugging Face ZeroGPU.
+    class _SpacesFallback:
+        @staticmethod
+        def GPU(*_args, **_kwargs):
+            def decorator(func):
+                return func
+
+            return decorator
+
+    spaces = _SpacesFallback()
+
 
 def _split_lines(value: str, *, maximum: int) -> list[str]:
     return [line.strip() for line in value.splitlines() if line.strip()][:maximum]
@@ -67,6 +80,7 @@ def _evaluate(svg: str, labels: list[str], forbidden: list[str]) -> tuple[float,
     return (sum(checks) / len(checks) if checks else 1.0), feedback
 
 
+@spaces.GPU(duration=10)
 def generate_visual(
     title: str,
     audience: str,
