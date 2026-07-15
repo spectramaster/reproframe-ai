@@ -7,7 +7,7 @@ import pytest
 
 from reproframe.cli import sample_brief
 from reproframe.config import Settings
-from reproframe.generation import MediaGenerator
+from reproframe.generation import GeminiSVGGenerator, MediaGenerator, _validated_svg
 from reproframe.models import GeneratedAsset, VisualBrief
 from reproframe.pipeline import ReproFramePipeline, build_fixture_pipeline, build_pipeline
 from reproframe.storage import LocalArtifactStore
@@ -45,6 +45,63 @@ def test_real_mode_requires_all_provider_credentials() -> None:
 
     with pytest.raises(RuntimeError, match="B2_KEY_ID"):
         build_pipeline(settings)
+
+
+class _FakeGeminiModels:
+    def generate_content(self, *, model: str, contents: str):
+        assert model == "gemini-test"
+        assert "Return one complete" in contents
+        return type(
+            "Response",
+            (),
+            {
+                "text": """<svg xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 1600 900"><text>Observe Evaluate</text></svg>"""
+            },
+        )()
+
+
+class _FakeGeminiClient:
+    models = _FakeGeminiModels()
+
+
+def test_gemini_svg_generator_stores_validated_asset(tmp_path: Path) -> None:
+    brief = sample_brief()
+    generator = GeminiSVGGenerator(
+        LocalArtifactStore(tmp_path),
+        api_key="test",
+        model="gemini-test",
+        client=_FakeGeminiClient(),
+    )
+
+    asset = generator.generate(
+        brief=brief,
+        prompt="Generate",
+        attempt=1,
+        run_id=UUID("00000000-0000-0000-0000-000000000001"),
+    )
+
+    assert asset.provider == "google-gemini"
+    assert "Observe Evaluate" in asset.extracted_text
+    assert next(tmp_path.rglob("*.svg")).is_file()
+
+
+def test_svg_validation_rejects_active_content() -> None:
+    with pytest.raises(ValueError, match="forbidden element"):
+        _validated_svg(
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">'
+            "<script>alert(1)</script></svg>"
+        )
+
+
+def test_svg_validation_allows_internal_gradient_reference() -> None:
+    payload, _ = _validated_svg(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">'
+        '<defs><linearGradient id="safe"><stop offset="0" /></linearGradient></defs>'
+        '<rect width="1600" height="900" fill="url(#safe)" /></svg>'
+    )
+
+    assert b"url(#safe)" in payload
 
 
 class RetryGenerator(MediaGenerator):

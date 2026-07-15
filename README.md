@@ -19,11 +19,17 @@ The first foundation runs end to end in zero-credential fixture mode:
 5. persist the asset and reproducibility manifest;
 6. expose both through a working FastAPI UI.
 
-Fixture results are explicitly development proof, not evidence that GMI generation has
-run. The real Genblaze adapter and B2 sink are wired behind `REPROFRAME_MODE=gmi`.
-The bucket-scoped B2 integration has completed a credentialed, encrypted upload and
-metadata verification; GMI generation and visual-model evaluation still require an API
-key before real mode is declared production-ready.
+Fixture results remain explicitly labeled development proof. A credentialed
+`gemini-svg` run has now generated a safe, self-contained scientific SVG through a
+free-tier Gemini text model, passed the Genblaze evaluation loop with a 1.0 score, and
+stored the candidate, Genblaze provenance, and final manifest in encrypted B2. The
+private bucket is served through a narrow application proxy, so credentials and signed
+URLs never enter manifests.
+
+The GMI adapter is also authenticated and ready behind `REPROFRAME_MODE=gmi`, but the
+account currently has no generation credits. `gemini-svg` is therefore the verified
+real-mode path; it falls back between compatible free-tier text models on transient
+provider failure.
 
 ## Run locally
 
@@ -37,6 +43,10 @@ make api
 ```
 
 Open <http://127.0.0.1:8000>.
+
+Copy `.env.example` to `.env` and set `REPROFRAME_MODE=gemini-svg`, `GEMINI_API_KEY`,
+and the bucket-scoped B2 variables to run the credentialed cloud path. Keep
+`REPROFRAME_MODE=fixture` for offline development and tests.
 
 ## Architecture
 

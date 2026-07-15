@@ -36,15 +36,16 @@ technical educators who need generated visuals without losing claim fidelity.
 ### M1 — real Genblaze workflow (July 16–18)
 
 - [x] Implement the credential-gated Genblaze image adapter for GMI Cloud.
+- [x] Add a no-payment Gemini-to-safe-SVG provider fallback for real generation.
 - [x] Drive generate → evaluate → retry with `AgentLoop` and manifest lineage.
 - [ ] Add a model-based visual evaluator behind an explicit provider interface.
-- [ ] Preserve deterministic checks as a mandatory pre-acceptance gate.
+- [x] Preserve deterministic checks as a mandatory pre-acceptance gate.
 
 ### M2 — Backblaze B2 as the system of record (July 18–20)
 
 - [x] Create a private, encrypted B2 bucket and a 90-day bucket-scoped application key.
 - [x] Use Genblaze `ObjectStorageSink` with hierarchical run layout.
-- [ ] Store input brief, every candidate, evaluation report, final asset, and manifest.
+- [x] Store input brief, every candidate, evaluation report, final asset, and manifest.
 - [ ] Verify asset SHA-256 and Genblaze manifest integrity from a clean environment.
 
 ### M3 — product-quality app and evaluation (July 20–25)

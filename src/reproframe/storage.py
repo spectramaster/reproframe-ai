@@ -56,4 +56,8 @@ class B2ArtifactStore(ArtifactStore):
             Body=payload,
             ContentType=content_type,
         )
-        return f"https://{self.bucket}.s3.{self.region}.backblazeb2.com/{key}"
+        return f"/api/artifacts/{key}"
+
+    def get_bytes(self, key: str) -> tuple[bytes, str]:
+        response = self.client.get_object(Bucket=self.bucket, Key=key)
+        return response["Body"].read(), response.get("ContentType", "application/octet-stream")

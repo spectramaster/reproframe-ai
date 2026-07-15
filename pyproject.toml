@@ -8,6 +8,7 @@ license = { text = "Apache-2.0" }
 dependencies = [
   "fastapi>=0.116,<1",
   "genblaze-core==0.3.4",
+  "google-genai>=2.11,<3",
   "jinja2>=3.1,<4",
   "pydantic-settings>=2.10,<3",
   "python-multipart>=0.0.20,<1",
