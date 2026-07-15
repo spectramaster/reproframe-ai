@@ -1,0 +1,13 @@
+Meet ReproFrame AI: scientific visuals you can verify, not just admire.
+
+The workflow starts with an evidence-bound brief. A researcher supplies the audience, supported claims, exact labels, forbidden content, and a visual direction. Those constraints become executable checks instead of disappearing inside a prompt.
+
+Generation is orchestrated through a Genblaze AgentLoop. Each candidate is evaluated deterministically. If a required label is missing or prohibited content appears, the feedback is attached to the next attempt. Accepted SVG is sanitized before rendering.
+
+This live interface shows the same control boundary in deterministic proof mode. One click creates the visual, reports the guardrail score and attempt count, and exposes both the asset and its manifest.
+
+In our verified credentialed run, a free-tier Gemini text model generated this self-contained SVG. It passed with a score of one point zero in one attempt. Backblaze B2 stored three encrypted artifacts: the candidate, Genblaze provenance, and the final SHA-256 manifest.
+
+The GMI Seedream adapter is authenticated and ready when generation credits are available. Provider and model metadata are always recorded honestly.
+
+ReproFrame AI makes generative media content-addressed, evidence constrained, and replayable. The full source is available on GitHub.
