@@ -25,6 +25,7 @@ from .generation import (
     GenblazeGMIImageGenerator,
     MediaGenerator,
 )
+from .model_evaluation import ModelVisualEvaluator
 from .models import (
     Attempt,
     Evaluation,
@@ -44,14 +45,20 @@ class ReproFramePipeline:
         store: ArtifactStore,
         *,
         max_iterations: int = 3,
+        model_evaluator: ModelVisualEvaluator | None = None,
     ) -> None:
         self.generator = generator
         self.store = store
-        self.evaluator = EvidenceEvaluator()
+        self.evaluator = EvidenceEvaluator(model_evaluator)
         self.max_iterations = max_iterations
 
     def run(self, brief: VisualBrief) -> RunSummary:
         run_id = uuid4()
+        self.store.put_bytes(
+            f"{run_id}/brief.json",
+            brief.model_dump_json(indent=2).encode("utf-8"),
+            "application/json",
+        )
         provider = _GeneratorProvider(self.generator, brief, run_id)
 
         def pipeline_factory(context: AgentContext) -> Pipeline:
@@ -75,6 +82,12 @@ class ReproFramePipeline:
             asset = provider.asset_for(step.step_id)
             evaluation = self.evaluator.evaluate(brief, asset)
             provider.record_evaluation(step.step_id, evaluation)
+            attempt = int(step.params.get("_reproframe_attempt", 1))
+            self.store.put_bytes(
+                f"{run_id}/evaluation-attempt-{attempt:02d}.json",
+                evaluation.model_dump_json(indent=2).encode("utf-8"),
+                "application/json",
+            )
             return GenblazeEvaluationResult(
                 passed=evaluation.passed,
                 score=evaluation.score,
@@ -134,8 +147,15 @@ class ReproFramePipeline:
             manifest.model_dump_json(indent=2).encode("utf-8"),
             "application/json",
         )
+        self.store.put_bytes(
+            f"{run_id}/final-selection.json",
+            final.model_dump_json(indent=2).encode("utf-8"),
+            "application/json",
+        )
         return RunSummary(
             run_id=run_id,
+            title=brief.title,
+            created_at=manifest.created_at,
             status=status,
             score=final.evaluation.score,
             attempts=len(attempts),
@@ -206,22 +226,28 @@ def build_fixture_pipeline(root: Path, *, max_iterations: int = 3) -> ReproFrame
     )
 
 
+def build_store(settings: Settings) -> ArtifactStore:
+    if settings.mode == "fixture":
+        return LocalArtifactStore(settings.artifact_dir)
+    if not all((settings.b2_key_id, settings.b2_app_key, settings.b2_bucket, settings.b2_region)):
+        raise RuntimeError(
+            "cloud modes require B2_KEY_ID, B2_APP_KEY, B2_BUCKET and B2_REGION"
+        )
+    return B2ArtifactStore(
+        settings.b2_bucket,
+        settings.b2_region,
+        key_id=settings.b2_key_id,
+        app_key=settings.b2_app_key,
+    )
+
+
 def build_pipeline(settings: Settings) -> ReproFramePipeline:
     if settings.mode == "fixture":
         return build_fixture_pipeline(
             settings.artifact_dir,
             max_iterations=settings.max_iterations,
         )
-    if not all((settings.b2_key_id, settings.b2_app_key, settings.b2_bucket, settings.b2_region)):
-        raise RuntimeError(
-            "cloud modes require B2_KEY_ID, B2_APP_KEY, B2_BUCKET and B2_REGION"
-        )
-    store = B2ArtifactStore(
-        settings.b2_bucket,
-        settings.b2_region,
-        key_id=settings.b2_key_id,
-        app_key=settings.b2_app_key,
-    )
+    store = build_store(settings)
     if settings.mode == "gmi":
         if not settings.gmi_api_key:
             raise RuntimeError("gmi mode requires GMI_API_KEY")
@@ -242,8 +268,20 @@ def build_pipeline(settings: Settings) -> ReproFramePipeline:
             api_key=settings.gemini_api_key,
             model=settings.gemini_text_model,
         )
+    model_evaluator = None
+    if settings.model_review_enabled:
+        if settings.mode != "gemini-svg" or not settings.gemini_api_key:
+            raise RuntimeError("model review currently requires gemini-svg mode and GEMINI_API_KEY")
+        from .model_evaluation import GeminiSVGModelEvaluator
+
+        model_evaluator = GeminiSVGModelEvaluator(
+            store,
+            api_key=settings.gemini_api_key,
+            model=settings.gemini_review_model,
+        )
     return ReproFramePipeline(
         generator,
         store,
         max_iterations=settings.max_iterations,
+        model_evaluator=model_evaluator,
     )

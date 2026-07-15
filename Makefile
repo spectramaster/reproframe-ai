@@ -1,4 +1,4 @@
-.PHONY: setup test lint api demo
+.PHONY: setup test lint api demo cloud-demo benchmark
 
 setup:
 	uv sync --extra dev --extra backblaze
@@ -14,3 +14,9 @@ api:
 
 demo:
 	PYTHONPATH=src .venv/bin/python -m reproframe.cli demo
+
+cloud-demo:
+	PYTHONPATH=src .venv/bin/python -m reproframe.cli cloud-demo
+
+benchmark:
+	PYTHONPATH=src .venv/bin/python -m reproframe.cli benchmark

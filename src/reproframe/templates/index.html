@@ -8,7 +8,7 @@
 </head>
 <body>
   <main>
-    <nav><span class="brand">ReproFrame<span>AI</span></span><span class="status"><i></i> local proof mode</span></nav>
+    <nav><span class="brand">ReproFrame<span>AI</span></span><span id="runtime-status" class="status"><i></i> checking runtime</span></nav>
     <section class="hero">
       <div>
         <p class="eyebrow">EVIDENCE-BOUND GENERATIVE MEDIA</p>
@@ -37,6 +37,13 @@ The final bundle includes a content hash and replayable manifest.</textarea></la
         <div class="placeholder"><span>R</span><p>Your accepted visual and provenance manifest will appear here.</p></div>
       </aside>
     </section>
+    <section class="history-section">
+      <div class="history-heading">
+        <div><p class="eyebrow">AUDITABLE RUN LEDGER</p><h2>Recent evidence bundles</h2></div>
+        <p>Re-open any run, compare attempts, verify stored bytes, and download its complete proof package.</p>
+      </div>
+      <div id="history" class="history-grid"><div class="history-empty">Loading durable run history…</div></div>
+    </section>
     <section class="proof">
       <article><b>Content-addressed</b><p>Every asset receives a SHA-256 digest before acceptance.</p></article>
       <article><b>Evidence constrained</b><p>Required claims and prohibited content become executable checks.</p></article>
@@ -46,4 +53,3 @@ The final bundle includes a content hash and replayable manifest.</textarea></la
   <script src="/static/app.js"></script>
 </body>
 </html>
-

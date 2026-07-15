@@ -1,0 +1,84 @@
+{
+  "schema_version": "reproframe-benchmark/0.1",
+  "generated_at": "2026-07-15T19:10:27.270631+00:00",
+  "mode": "deterministic-fixture",
+  "case_count": 5,
+  "metrics": {
+    "acceptance_rate": 1,
+    "mean_guardrail_score": 1.0,
+    "mean_claim_label_coverage": 1.0,
+    "retry_trigger_rate": 0.6,
+    "retry_success_rate": 1,
+    "storage_integrity_rate": 1,
+    "mean_latency_seconds": 0.00332,
+    "mean_provider_cost_usd": 0.0
+  },
+  "cases": [
+    {
+      "case_id": "spectroscopy-calibration",
+      "run_id": "3c3b7dd0-5357-44ff-9895-9a03f6335e0a",
+      "accepted": true,
+      "score": 1.0,
+      "coverage": 1.0,
+      "attempts": 2,
+      "retry_succeeded": true,
+      "latency_seconds": 0.0052,
+      "provider_cost_usd": 0.0,
+      "storage_integrity": true,
+      "stored_objects": 9
+    },
+    {
+      "case_id": "microscopy-segmentation",
+      "run_id": "1066e876-e492-4399-9bec-160b993fdbca",
+      "accepted": true,
+      "score": 1.0,
+      "coverage": 1.0,
+      "attempts": 1,
+      "retry_succeeded": false,
+      "latency_seconds": 0.0024,
+      "provider_cost_usd": 0.0,
+      "storage_integrity": true,
+      "stored_objects": 6
+    },
+    {
+      "case_id": "materials-screening",
+      "run_id": "ae7a6623-921b-4ad1-8852-9d23f026608c",
+      "accepted": true,
+      "score": 1.0,
+      "coverage": 1.0,
+      "attempts": 2,
+      "retry_succeeded": true,
+      "latency_seconds": 0.0039,
+      "provider_cost_usd": 0.0,
+      "storage_integrity": true,
+      "stored_objects": 9
+    },
+    {
+      "case_id": "ecology-sampling",
+      "run_id": "3393dd82-b94f-4ba9-a39d-477f21272bca",
+      "accepted": true,
+      "score": 1.0,
+      "coverage": 1.0,
+      "attempts": 1,
+      "retry_succeeded": false,
+      "latency_seconds": 0.0019,
+      "provider_cost_usd": 0.0,
+      "storage_integrity": true,
+      "stored_objects": 6
+    },
+    {
+      "case_id": "robotics-ablation",
+      "run_id": "e22a4e7c-b647-4b34-8313-28f5fc9714cb",
+      "accepted": true,
+      "score": 1.0,
+      "coverage": 1.0,
+      "attempts": 2,
+      "retry_succeeded": true,
+      "latency_seconds": 0.0032,
+      "provider_cost_usd": 0.0,
+      "storage_integrity": true,
+      "stored_objects": 9
+    }
+  ],
+  "scope_note": "These figures cover five deterministic scientific-communication fixtures. They are not a benchmark of Gemini, GMI, scientific truth, or visual preference."
+}

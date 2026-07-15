@@ -39,7 +39,11 @@ class FixtureScientificGenerator(MediaGenerator):
         run_id: UUID,
     ) -> GeneratedAsset:
         del prompt
-        labels = brief.required_labels
+        labels = (
+            brief.required_labels[:-1]
+            if attempt == 1 and len(brief.required_labels) > 1
+            else brief.required_labels
+        )
         claims = [claim.text for claim in brief.claims]
         text_lines = [brief.title, *labels, *claims]
         escaped_title = html.escape(brief.title)

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#10251f"/>
+      <stop offset="1" stop-color="#17352d"/>
+    </linearGradient>
+    <linearGradient id="mint" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b9f5d8"/>
+      <stop offset="1" stop-color="#85ddba"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#07130f" flood-opacity=".26"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1510" cy="35" r="350" fill="#b9f5d8" opacity=".12"/>
+  <circle cx="90" cy="880" r="300" fill="#6677da" opacity=".18"/>
+  <g opacity=".12" stroke="#b9f5d8">
+    <path d="M0 180H1600M0 360H1600M0 540H1600M0 720H1600"/>
+    <path d="M240 0V900M480 0V900M720 0V900M960 0V900M1200 0V900M1440 0V900"/>
+  </g>
+
+  <text x="90" y="104" fill="#9ee8c8" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="20" font-weight="700" letter-spacing="5">EVIDENCE-BOUND GENERATIVE MEDIA</text>
+  <text x="90" y="220" fill="#ffffff" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="88" font-weight="760" letter-spacing="-4">ReproFrame <tspan fill="#9ee8c8">AI</tspan></text>
+  <text x="90" y="292" fill="#d9e7e2" font-family="Georgia,serif" font-size="42" font-style="italic">Scientific visuals you can verify.</text>
+
+  <g transform="translate(90 382)" filter="url(#shadow)">
+    <rect width="1420" height="350" rx="38" fill="#f8fbfa"/>
+    <g transform="translate(54 55)">
+      <text x="0" y="0" fill="#08775d" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="18" font-weight="800" letter-spacing="3">GENBLAZE REVIEW LOOP</text>
+      <g transform="translate(0 52)" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+        <g>
+          <rect width="235" height="112" rx="24" fill="url(#mint)"/>
+          <text x="28" y="44" fill="#0c4b3b" font-size="16" font-weight="800" letter-spacing="2">01</text>
+          <text x="28" y="80" fill="#142520" font-size="27" font-weight="740">Generate</text>
+        </g>
+        <path d="M255 56H315" stroke="#73857f" stroke-width="3"/><path d="M304 45l12 11-12 11" fill="none" stroke="#73857f" stroke-width="3"/>
+        <g transform="translate(336)">
+          <rect width="235" height="112" rx="24" fill="#e9eeff"/>
+          <text x="28" y="44" fill="#6677da" font-size="16" font-weight="800" letter-spacing="2">02</text>
+          <text x="28" y="80" fill="#142520" font-size="27" font-weight="740">Evaluate</text>
+        </g>
+        <path d="M591 56H651" stroke="#73857f" stroke-width="3"/><path d="M640 45l12 11-12 11" fill="none" stroke="#73857f" stroke-width="3"/>
+        <g transform="translate(672)">
+          <rect width="235" height="112" rx="24" fill="#fff1d9"/>
+          <text x="28" y="44" fill="#a45a06" font-size="16" font-weight="800" letter-spacing="2">03</text>
+          <text x="28" y="80" fill="#142520" font-size="27" font-weight="740">Retry</text>
+        </g>
+        <path d="M927 56H987" stroke="#73857f" stroke-width="3"/><path d="M976 45l12 11-12 11" fill="none" stroke="#73857f" stroke-width="3"/>
+        <g transform="translate(1008)">
+          <rect width="235" height="112" rx="24" fill="#dff4ec"/>
+          <text x="28" y="44" fill="#08775d" font-size="16" font-weight="800" letter-spacing="2">04</text>
+          <text x="28" y="80" fill="#142520" font-size="27" font-weight="740">Verify</text>
+        </g>
+      </g>
+      <g transform="translate(0 220)" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-size="18">
+        <rect width="410" height="58" rx="18" fill="#edf3f1"/>
+        <text x="24" y="37" fill="#344740"><tspan font-weight="760">Backblaze B2</tspan> · encrypted provenance</text>
+        <rect x="430" width="390" height="58" rx="18" fill="#edf3f1"/>
+        <text x="454" y="37" fill="#344740"><tspan font-weight="760">SHA-256</tspan> · stored-byte integrity</text>
+        <rect x="840" width="403" height="58" rx="18" fill="#edf3f1"/>
+        <text x="864" y="37" fill="#344740"><tspan font-weight="760">Human review</tspan> · explicit acceptance</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(90 802)" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+    <text fill="#9ee8c8" font-size="19" font-weight="760">GENBLAZE</text>
+    <circle cx="132" cy="-6" r="4" fill="#637a71"/>
+    <text x="152" fill="#d9e7e2" font-size="19">BACKBLAZE B2</text>
+    <circle cx="330" cy="-6" r="4" fill="#637a71"/>
+    <text x="350" fill="#d9e7e2" font-size="19">GEMINI</text>
+    <circle cx="445" cy="-6" r="4" fill="#637a71"/>
+    <text x="465" fill="#d9e7e2" font-size="19">REPLAYABLE MANIFESTS</text>
+  </g>
+  <text x="1510" y="808" text-anchor="end" fill="#9bb0a8" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="15">REPROFRAME/0.1</text>
+</svg>

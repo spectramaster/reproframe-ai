@@ -9,6 +9,18 @@ class ArtifactStore(ABC):
     def put_bytes(self, key: str, payload: bytes, content_type: str) -> str:
         raise NotImplementedError
 
+    @abstractmethod
+    def get_bytes(self, key: str) -> tuple[bytes, str]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def list_keys(self, prefix: str = "") -> list[str]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def url_for(self, key: str) -> str:
+        raise NotImplementedError
+
 
 class LocalArtifactStore(ArtifactStore):
     def __init__(self, root: Path) -> None:
@@ -22,6 +34,36 @@ class LocalArtifactStore(ArtifactStore):
             raise ValueError("artifact key escapes configured root")
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(payload)
+        return self.url_for(key)
+
+    def get_bytes(self, key: str) -> tuple[bytes, str]:
+        path = (self.root / key).resolve()
+        if self.root not in path.parents:
+            raise ValueError("artifact key escapes configured root")
+        suffix = path.suffix.casefold()
+        content_types = {
+            ".json": "application/json",
+            ".svg": "image/svg+xml",
+            ".zip": "application/zip",
+        }
+        return path.read_bytes(), content_types.get(suffix, "application/octet-stream")
+
+    def list_keys(self, prefix: str = "") -> list[str]:
+        normalized = prefix.strip("/")
+        base = (self.root / normalized).resolve() if normalized else self.root
+        if base != self.root and self.root not in base.parents:
+            raise ValueError("artifact prefix escapes configured root")
+        if base.is_file():
+            return [base.relative_to(self.root).as_posix()]
+        if not base.exists():
+            return []
+        return sorted(
+            path.relative_to(self.root).as_posix()
+            for path in base.rglob("*")
+            if path.is_file()
+        )
+
+    def url_for(self, key: str) -> str:
         return f"/artifacts/{key}"
 
 
@@ -56,8 +98,27 @@ class B2ArtifactStore(ArtifactStore):
             Body=payload,
             ContentType=content_type,
         )
-        return f"/api/artifacts/{key}"
+        return self.url_for(key)
 
     def get_bytes(self, key: str) -> tuple[bytes, str]:
         response = self.client.get_object(Bucket=self.bucket, Key=key)
         return response["Body"].read(), response.get("ContentType", "application/octet-stream")
+
+    def list_keys(self, prefix: str = "") -> list[str]:
+        keys: list[str] = []
+        token: str | None = None
+        while True:
+            params = {"Bucket": self.bucket, "Prefix": prefix, "MaxKeys": 1000}
+            if token:
+                params["ContinuationToken"] = token
+            response = self.client.list_objects_v2(**params)
+            keys.extend(item["Key"] for item in response.get("Contents", []))
+            if not response.get("IsTruncated"):
+                break
+            token = response.get("NextContinuationToken")
+            if not token:
+                break
+        return sorted(keys)
+
+    def url_for(self, key: str) -> str:
+        return f"/api/artifacts/{key}"

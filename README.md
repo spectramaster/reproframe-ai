@@ -2,6 +2,8 @@
 
 **Scientific visuals you can verify, not just admire.**
 
+![ReproFrame AI generate-evaluate-retry-verify workflow](assets/devpost-cover.png)
+
 ReproFrame turns a bounded set of evidence-backed claims into a visual abstract and
 keeps every prompt, attempt, quality check, revision, model decision, and asset hash in
 one replayable manifest. It is being built for the Backblaze Generative Media
@@ -19,7 +21,10 @@ The first foundation runs end to end in zero-credential fixture mode:
 5. persist the asset and reproducibility manifest;
 6. expose both through a working FastAPI UI.
 
-Fixture results remain explicitly labeled development proof. A credentialed
+Fixture results remain explicitly labeled development proof. Fixture attempt one
+deliberately omits one required label when possible, so the public workflow visibly
+demonstrates evaluation feedback and a lineage-linked retry instead of only showing a
+perfect first result. A credentialed
 `gemini-svg` run has now generated a safe, self-contained scientific SVG through a
 free-tier Gemini text model, passed the Genblaze evaluation loop with a 1.0 score, and
 stored the candidate, Genblaze provenance, and final manifest in encrypted B2. The
@@ -48,6 +53,36 @@ Copy `.env.example` to `.env` and set `REPROFRAME_MODE=gemini-svg`, `GEMINI_API_
 and the bucket-scoped B2 variables to run the credentialed cloud path. Keep
 `REPROFRAME_MODE=fixture` for offline development and tests.
 
+## Verification and evaluation
+
+The application now exposes a durable run ledger, attempt-by-attempt comparison,
+token-protected human review, stored-byte verification, and a downloadable ZIP proof
+bundle. The CLI uses the same code paths:
+
+```bash
+reproframe history --limit 5
+reproframe verify <run-id>
+reproframe bundle <run-id> --output evidence.zip
+make benchmark
+```
+
+`reproframe verify` separately checks the ReproFrame canonical manifest hash, every
+locally addressable asset byte hash, and each Genblaze manifest. This distinction is
+intentional: validating a manifest is not the same as fetching and re-hashing the media
+it names.
+
+The checked-in five-case fixture benchmark covers spectroscopy, microscopy, materials,
+ecology, and robotics communication. Its latest deterministic results live at
+[`benchmarks/results/latest.json`](benchmarks/results/latest.json). They measure the
+ReproFrame control boundary, not scientific truth, model quality, or human visual
+preference.
+
+The latest credentialed verification used two Genblaze iterations: attempt one failed
+the deterministic gate at `0.8182`; attempt two passed the optional Gemini visual
+review at a combined `0.975`. Both assets and both Genblaze manifests were then fetched
+from B2 and re-hashed successfully. Exact scope and commands are recorded in
+[`docs/VERIFICATION_LEDGER.md`](docs/VERIFICATION_LEDGER.md).
+
 ## Architecture
 
 ```mermaid
@@ -63,6 +98,10 @@ flowchart LR
 
 The local fixture implements the same control boundary with a local artifact store.
 Cloud credentials are never accepted by the browser or written into manifests.
+
+The production image is built from the digest-pinned `python:3.12-slim` base, runs as
+UID 1000, and exposes a Docker health check on port 7860. See `Dockerfile` and
+`deploy/huggingface/`.
 
 ## Project plan
 

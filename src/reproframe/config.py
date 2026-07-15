@@ -21,7 +21,11 @@ class Settings(BaseSettings):
     max_iterations: int = Field(default=3, ge=1, le=5)
     gmi_image_model: str = "seedream-5.0-lite"
     gemini_text_model: str = "gemini-3.1-flash-lite"
+    gemini_review_model: str = "gemini-3.1-flash-lite"
+    model_review_enabled: bool = False
     generation_timeout_seconds: int = Field(default=180, ge=30, le=900)
+    max_concurrent_runs: int = Field(default=2, ge=1, le=8)
+    review_token: str | None = Field(default=None, validation_alias="REPROFRAME_REVIEW_TOKEN")
     gmi_api_key: str | None = Field(default=None, validation_alias="GMI_API_KEY")
     gemini_api_key: str | None = Field(default=None, validation_alias="GEMINI_API_KEY")
     b2_key_id: str | None = Field(default=None, validation_alias="B2_KEY_ID")

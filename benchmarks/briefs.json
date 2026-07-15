@@ -1,0 +1,67 @@
+[
+  {
+    "case_id": "spectroscopy-calibration",
+    "title": "Traceable spectroscopy calibration workflow",
+    "audience": "analytical chemistry researchers",
+    "claims": [
+      {"claim_id": "c1", "text": "Calibration inputs are recorded before model fitting."},
+      {"claim_id": "c2", "text": "Every reported result links to its preprocessing configuration."},
+      {"claim_id": "c3", "text": "Reviewers can inspect the final provenance bundle.", "priority": "supporting"}
+    ],
+    "required_labels": ["Acquire", "Calibrate", "Fit", "Verify"],
+    "forbidden_elements": ["guaranteed accuracy", "invented measurement"],
+    "style": "clean spectroscopy workflow with restrained spectral accents"
+  },
+  {
+    "case_id": "microscopy-segmentation",
+    "title": "Auditable microscopy segmentation pipeline",
+    "audience": "cell imaging researchers",
+    "claims": [
+      {"claim_id": "c1", "text": "The source image remains linked to every segmentation attempt."},
+      {"claim_id": "c2", "text": "Failed quality checks produce explicit revision feedback."},
+      {"claim_id": "c3", "text": "Human review remains separate from automated checks.", "priority": "supporting"}
+    ],
+    "required_labels": ["Image", "Segment", "Evaluate", "Review"],
+    "forbidden_elements": ["clinical diagnosis", "fabricated cell count"],
+    "style": "scientific microscopy editorial with clear process stages"
+  },
+  {
+    "case_id": "materials-screening",
+    "title": "Reproducible materials screening summary",
+    "audience": "computational materials scientists",
+    "claims": [
+      {"claim_id": "c1", "text": "Candidate filters are declared before ranking."},
+      {"claim_id": "c2", "text": "Each visual claim maps to a stored workflow artifact."},
+      {"claim_id": "c3", "text": "Content hashes make later changes detectable.", "priority": "supporting"}
+    ],
+    "required_labels": ["Filter", "Rank", "Inspect", "Archive"],
+    "forbidden_elements": ["commercial guarantee", "invented benchmark"],
+    "style": "materials informatics dashboard with sparse geometric motifs"
+  },
+  {
+    "case_id": "ecology-sampling",
+    "title": "Transparent ecology sampling narrative",
+    "audience": "field ecology teams",
+    "claims": [
+      {"claim_id": "c1", "text": "Sampling constraints are visible beside the generated summary."},
+      {"claim_id": "c2", "text": "Unsupported causal claims are excluded from the visual."},
+      {"claim_id": "c3", "text": "The archived manifest records each revision.", "priority": "supporting"}
+    ],
+    "required_labels": ["Sample", "Observe", "Check", "Archive"],
+    "forbidden_elements": ["proven causation", "invented species"],
+    "style": "field research editorial with natural muted colors"
+  },
+  {
+    "case_id": "robotics-ablation",
+    "title": "Evidence-bound robotics ablation overview",
+    "audience": "robot learning researchers",
+    "claims": [
+      {"claim_id": "c1", "text": "Ablation conditions are listed before visual comparison."},
+      {"claim_id": "c2", "text": "The visual does not add performance numbers absent from the brief."},
+      {"claim_id": "c3", "text": "Every accepted asset carries a reproducible content hash.", "priority": "supporting"}
+    ],
+    "required_labels": ["Baseline", "Ablate", "Compare", "Verify"],
+    "forbidden_elements": ["state of the art", "invented percentage"],
+    "style": "robotics conference visual with precise technical hierarchy"
+  }
+]

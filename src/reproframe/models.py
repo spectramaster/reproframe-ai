@@ -45,11 +45,21 @@ class GeneratedAsset(BaseModel):
     provenance_sha256: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
 
 
+class ModelReview(BaseModel):
+    passed: bool
+    score: float = Field(ge=0, le=1)
+    checks: dict[str, bool]
+    feedback: list[str] = Field(default_factory=list, max_length=12)
+    provider: str
+    model: str
+
+
 class Evaluation(BaseModel):
     passed: bool
     score: float = Field(ge=0, le=1)
     checks: dict[str, bool]
     feedback: list[str] = Field(default_factory=list)
+    model_review: ModelReview | None = None
 
 
 class Attempt(BaseModel):
@@ -72,9 +82,35 @@ class ReproducibilityManifest(BaseModel):
 
 class RunSummary(BaseModel):
     run_id: UUID
+    title: str
+    created_at: datetime
     status: Literal["accepted", "needs_review"]
     score: float
     attempts: int
     asset_url: str
     manifest_url: str
     canonical_sha256: str
+
+
+class ReviewDecision(BaseModel):
+    decision: Literal["accepted", "rejected", "needs_changes"]
+    reviewer: str = Field(default="human-reviewer", min_length=2, max_length=80)
+    note: str = Field(default="", max_length=600)
+    reviewed_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+
+
+class VerificationReport(BaseModel):
+    run_id: UUID
+    valid: bool
+    manifest_hash_valid: bool
+    asset_hashes_valid: bool
+    genblaze_manifests_valid: bool
+    checked_assets: int = Field(ge=0)
+    checked_genblaze_manifests: int = Field(ge=0)
+    object_count: int = Field(ge=0)
+    errors: list[str] = Field(default_factory=list)
+
+class RunDetails(BaseModel):
+    manifest: ReproducibilityManifest
+    review: ReviewDecision | None = None
+    verification: VerificationReport
