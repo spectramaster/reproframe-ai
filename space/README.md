@@ -19,3 +19,5 @@ The Space imports the canonical implementation from the public GitHub repository
 runs the same Genblaze generate-evaluate-feedback boundary in deterministic fixture
 mode. No Gemini, GMI, Backblaze B2, or other project credentials are stored in the
 Space.
+
+The dependency set supports the Python 3.10 runtime used by Hugging Face Spaces.
