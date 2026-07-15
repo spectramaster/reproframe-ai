@@ -94,6 +94,10 @@ class GenblazeGMIImageGenerator(MediaGenerator):
         self,
         *,
         bucket: str,
+        region: str,
+        b2_key_id: str,
+        b2_app_key: str,
+        gmi_api_key: str,
         model: str,
         timeout_seconds: int = 180,
     ) -> None:
@@ -103,9 +107,14 @@ class GenblazeGMIImageGenerator(MediaGenerator):
 
         self.model = model
         self.timeout_seconds = timeout_seconds
-        self.provider = GMICloudImageProvider()
+        self.provider = GMICloudImageProvider(api_key=gmi_api_key)
         self.sink = ObjectStorageSink(
-            S3StorageBackend.for_backblaze(bucket),
+            S3StorageBackend.for_backblaze(
+                bucket,
+                region=region,
+                key_id=b2_key_id,
+                app_key=b2_app_key,
+            ),
             key_strategy=KeyStrategy.HIERARCHICAL,
         )
 

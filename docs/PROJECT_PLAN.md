@@ -31,7 +31,7 @@ technical educators who need generated visuals without losing claim fidelity.
 - [x] Verify deadline, required services, deliverables, prizes, and judging criteria.
 - [x] Freeze the research-visual use case and evidence-bound product promise.
 - [x] Create an independent local project with fixture mode and no secrets.
-- [ ] Run the first complete local test and UI verification.
+- [x] Run the first complete local test and UI verification.
 
 ### M1 — real Genblaze workflow (July 16–18)
 
@@ -42,8 +42,8 @@ technical educators who need generated visuals without losing claim fidelity.
 
 ### M2 — Backblaze B2 as the system of record (July 18–20)
 
-- [ ] Create a dedicated B2 bucket and bucket-scoped application key.
-- [ ] Use Genblaze `ObjectStorageSink` with hierarchical run layout.
+- [x] Create a private, encrypted B2 bucket and a 90-day bucket-scoped application key.
+- [x] Use Genblaze `ObjectStorageSink` with hierarchical run layout.
 - [ ] Store input brief, every candidate, evaluation report, final asset, and manifest.
 - [ ] Verify asset SHA-256 and Genblaze manifest integrity from a clean environment.
 

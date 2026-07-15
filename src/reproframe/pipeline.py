@@ -211,11 +211,31 @@ def build_pipeline(settings: Settings) -> ReproFramePipeline:
             settings.artifact_dir,
             max_iterations=settings.max_iterations,
         )
-    if not settings.b2_bucket or not settings.b2_region:
-        raise RuntimeError("gmi mode requires B2_BUCKET and B2_REGION")
-    store = B2ArtifactStore(settings.b2_bucket, settings.b2_region)
+    if not all(
+        (
+            settings.gmi_api_key,
+            settings.b2_key_id,
+            settings.b2_app_key,
+            settings.b2_bucket,
+            settings.b2_region,
+        )
+    ):
+        raise RuntimeError(
+            "gmi mode requires GMI_API_KEY, B2_KEY_ID, B2_APP_KEY, "
+            "B2_BUCKET and B2_REGION"
+        )
+    store = B2ArtifactStore(
+        settings.b2_bucket,
+        settings.b2_region,
+        key_id=settings.b2_key_id,
+        app_key=settings.b2_app_key,
+    )
     generator = GenblazeGMIImageGenerator(
         bucket=settings.b2_bucket,
+        region=settings.b2_region,
+        b2_key_id=settings.b2_key_id,
+        b2_app_key=settings.b2_app_key,
+        gmi_api_key=settings.gmi_api_key,
         model=settings.gmi_image_model,
         timeout_seconds=settings.generation_timeout_seconds,
     )

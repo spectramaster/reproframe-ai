@@ -3,10 +3,13 @@ import json
 from pathlib import Path
 from uuid import UUID
 
+import pytest
+
 from reproframe.cli import sample_brief
+from reproframe.config import Settings
 from reproframe.generation import MediaGenerator
 from reproframe.models import GeneratedAsset, VisualBrief
-from reproframe.pipeline import ReproFramePipeline, build_fixture_pipeline
+from reproframe.pipeline import ReproFramePipeline, build_fixture_pipeline, build_pipeline
 from reproframe.storage import LocalArtifactStore
 
 
@@ -29,6 +32,19 @@ def test_manifest_does_not_contain_secret_fields(tmp_path: Path) -> None:
 
     assert "GMI_API_KEY" not in manifest
     assert "B2_APP_KEY" not in manifest
+
+
+def test_real_mode_requires_all_provider_credentials() -> None:
+    settings = Settings(
+        _env_file=None,
+        mode="gmi",
+        GMI_API_KEY="gmi-test",
+        B2_BUCKET="test-bucket",
+        B2_REGION="us-east-005",
+    )
+
+    with pytest.raises(RuntimeError, match="B2_KEY_ID"):
+        build_pipeline(settings)
 
 
 class RetryGenerator(MediaGenerator):

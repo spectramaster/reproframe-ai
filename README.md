@@ -19,11 +19,11 @@ The first foundation runs end to end in zero-credential fixture mode:
 5. persist the asset and reproducibility manifest;
 6. expose both through a working FastAPI UI.
 
-Real Genblaze/GMI generation and B2 storage are the next milestone. Fixture results are
-explicitly development proof, not evidence that the cloud integration has run. The
-real Genblaze adapter and B2 sink are now wired behind `REPROFRAME_MODE=gmi`; credentialed
-integration and visual-model evaluation remain to be verified before that mode is
-declared production-ready.
+Fixture results are explicitly development proof, not evidence that GMI generation has
+run. The real Genblaze adapter and B2 sink are wired behind `REPROFRAME_MODE=gmi`.
+The bucket-scoped B2 integration has completed a credentialed, encrypted upload and
+metadata verification; GMI generation and visual-model evaluation still require an API
+key before real mode is declared production-ready.
 
 ## Run locally
 
