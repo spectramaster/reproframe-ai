@@ -5,7 +5,7 @@ colorFrom: green
 colorTo: indigo
 sdk: gradio
 sdk_version: 6.5.1
-python_version: 3.11
+python_version: "3.11"
 app_file: app.py
 pinned: false
 license: apache-2.0
@@ -20,4 +20,4 @@ runs the same Genblaze generate-evaluate-feedback boundary in deterministic fixt
 mode. No Gemini, GMI, Backblaze B2, or other project credentials are stored in the
 Space.
 
-The dependency set supports the Python 3.10 runtime used by Hugging Face Spaces.
+The Space pins Python 3.11 for compatibility with Genblaze.
