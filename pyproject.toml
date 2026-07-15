@@ -1,0 +1,48 @@
+[project]
+name = "reproframe-ai"
+version = "0.1.0"
+description = "Evidence-grounded scientific visual generation with replayable provenance"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+license = { text = "Apache-2.0" }
+dependencies = [
+  "fastapi>=0.116,<1",
+  "jinja2>=3.1,<4",
+  "pydantic-settings>=2.10,<3",
+  "python-multipart>=0.0.20,<1",
+  "uvicorn[standard]>=0.35,<1",
+]
+
+[project.optional-dependencies]
+backblaze = [
+  "boto3>=1.39,<2",
+  "genblaze-core==0.3.4",
+  "genblaze-gmicloud==0.3.2",
+  "genblaze-s3==0.3.4",
+]
+dev = [
+  "httpx>=0.28,<1",
+  "pytest>=8.4,<9",
+  "ruff>=0.12,<1",
+]
+
+[project.scripts]
+reproframe = "reproframe.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/reproframe"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]

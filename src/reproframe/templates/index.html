@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ReproFrame AI</title>
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <main>
+    <nav><span class="brand">ReproFrame<span>AI</span></span><span class="status"><i></i> local proof mode</span></nav>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">EVIDENCE-BOUND GENERATIVE MEDIA</p>
+        <h1>Scientific visuals you can <em>verify</em>, not just admire.</h1>
+        <p class="lede">Turn a small set of evidence-backed claims into a visual abstract. Every attempt, quality check, revision, asset hash, and model decision stays attached.</p>
+      </div>
+      <div class="loop"><span>01 Generate</span><b>→</b><span>02 Evaluate</span><b>→</b><span>03 Retry</span><b>→</b><span>04 Verify</span></div>
+    </section>
+    <section class="workspace">
+      <form id="brief-form">
+        <div class="section-label">VISUAL BRIEF</div>
+        <label>Title<input id="title" value="Safer scientific visuals from generative AI" required></label>
+        <label>Audience<input id="audience" value="researchers and journal editors" required></label>
+        <label>Evidence-backed claims<textarea id="claims" rows="6" required>Every generated asset is linked to its prompt, model, and evaluation.
+Failed checks produce explicit feedback before a new attempt is created.
+The final bundle includes a content hash and replayable manifest.</textarea></label>
+        <div class="columns">
+          <label>Required exact labels<input id="labels" value="Generate, Evaluate, Retry, Verify"></label>
+          <label>Forbidden content<input id="forbidden" value="fabricated statistic, medical diagnosis"></label>
+        </div>
+        <label>Visual direction<input id="style" value="clean scientific editorial, restrained green and indigo palette"></label>
+        <button type="submit"><span>Generate with evidence guardrails</span><b>↗</b></button>
+      </form>
+      <aside id="result" class="result empty">
+        <div class="section-label">REPRODUCIBILITY RESULT</div>
+        <div class="placeholder"><span>R</span><p>Your accepted visual and provenance manifest will appear here.</p></div>
+      </aside>
+    </section>
+    <section class="proof">
+      <article><b>Content-addressed</b><p>Every asset receives a SHA-256 digest before acceptance.</p></article>
+      <article><b>Evidence constrained</b><p>Required claims and prohibited content become executable checks.</p></article>
+      <article><b>Replayable</b><p>Prompts, providers, models, feedback and attempts remain in one manifest.</p></article>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>
+
