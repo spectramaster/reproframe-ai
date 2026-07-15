@@ -58,9 +58,9 @@ technical educators who need generated visuals without losing claim fidelity.
 ### M4 — deploy and package (July 25–29)
 
 - [x] Build and verify a locked container image.
-- [ ] Deploy the working app with health checks and protected server-side credentials.
+- [x] Deploy the working app with health checks and protected server-side credentials.
 - [x] Create the public GitHub repository with complete setup and architecture docs.
-- [ ] Run a clean-room reproduction and secret scan.
+- [x] Run a clean-room reproduction and secret scan.
 
 ### M5 — submission (July 29–August 2)
 

@@ -2,6 +2,8 @@
 
 **Scientific visuals you can verify, not just admire.**
 
+**Live app:** [reproframe-ai.onrender.com](https://reproframe-ai.onrender.com)
+
 ![ReproFrame AI generate-evaluate-retry-verify workflow](assets/devpost-cover.png)
 
 ReproFrame turns a bounded set of evidence-backed claims into a visual abstract and
@@ -12,7 +14,8 @@ of record.
 
 ## Current state
 
-The first foundation runs end to end in zero-credential fixture mode:
+The public app now runs end to end in credentialed `gemini-svg` mode, while the same
+control boundary remains available in zero-credential fixture mode for local testing:
 
 1. validate an evidence-bound visual brief;
 2. construct a constrained generation prompt;
@@ -77,10 +80,11 @@ ecology, and robotics communication. Its latest deterministic results live at
 ReproFrame control boundary, not scientific truth, model quality, or human visual
 preference.
 
-The latest credentialed verification used two Genblaze iterations: attempt one failed
-the deterministic gate at `0.8182`; attempt two passed the optional Gemini visual
-review at a combined `0.975`. Both assets and both Genblaze manifests were then fetched
-from B2 and re-hashed successfully. Exact scope and commands are recorded in
+The latest public verification used two Genblaze iterations: attempt one failed the
+deterministic gate at `0.8333`; attempt two passed the Gemini visual review at `1.0`.
+Both assets and both Genblaze manifests were then fetched from B2 and re-hashed
+successfully. The resulting proof bundle contains ten files and passes `unzip -t`.
+Exact scope, run identifiers, and commands are recorded in
 [`docs/VERIFICATION_LEDGER.md`](docs/VERIFICATION_LEDGER.md).
 
 ## Architecture
@@ -100,7 +104,9 @@ The local fixture implements the same control boundary with a local artifact sto
 Cloud credentials are never accepted by the browser or written into manifests.
 
 The production image is built from the digest-pinned `python:3.12-slim` base, runs as
-UID 1000, and exposes a Docker health check on port 7860. See `Dockerfile` and
+UID 1000, and exposes a Docker health check on port 7860. The live service is deployed
+from the public GitHub branch to Render's free Docker runtime with `/health` as its
+application-level health check. See `Dockerfile`, `deploy/render/`, and
 `deploy/huggingface/`.
 
 ## Project plan
