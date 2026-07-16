@@ -19,6 +19,10 @@ and contains no credentials.
 - B2 verification: canonical manifest, two asset hashes, and two Genblaze manifests valid
 - Stored objects: nine
 - Downloaded evidence ZIP: ten entries; `unzip -t` reported no errors
+- Public app UI: latest run re-opened successfully, with a 100% guardrail score,
+  two attempts, PASS auto gate, VERIFIED stored bytes, and no browser console errors
+- Devpost media package: cover plus four 1200×800 gallery images prepared from the
+  public runtime and accepted benchmark outputs
 
 Public verification endpoints:
 

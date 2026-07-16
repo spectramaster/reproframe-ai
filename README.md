@@ -89,6 +89,13 @@ successfully. The resulting proof bundle contains ten files and passes `unzip -t
 Exact scope, run identifiers, and commands are recorded in
 [`docs/VERIFICATION_LEDGER.md`](docs/VERIFICATION_LEDGER.md).
 
+![ReproFrame AI public evidence view](assets/reproframe-live-evidence.jpg)
+
+The public Devpost gallery also includes the live generator, the verified result panel,
+and two accepted outputs from the checked-in five-case benchmark. Every gallery claim
+is backed by the same public runtime or repository artifacts; the screenshots do not
+introduce simulated provider results.
+
 ## Architecture
 
 ```mermaid
