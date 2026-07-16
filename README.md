@@ -116,8 +116,10 @@ Cloud credentials are never accepted by the browser or written into manifests.
 The production image is built from the digest-pinned `python:3.12-slim` base, runs as
 UID 1000, and exposes a Docker health check on port 7860. The live service is deployed
 from the public GitHub branch to Render's free Docker runtime with `/health` as its
-application-level health check. See `Dockerfile`, `deploy/render/`, and
-`deploy/huggingface/`.
+application-level health check. Every application response also carries a restrictive
+Content Security Policy plus frame, MIME-sniffing, referrer, and browser-permission
+guards; these headers are covered by the API tests. See `Dockerfile`, `deploy/render/`,
+and `deploy/huggingface/`.
 
 ## Project plan
 
