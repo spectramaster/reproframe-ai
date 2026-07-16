@@ -5,7 +5,8 @@ import html
 import re
 from abc import ABC, abstractmethod
 from uuid import UUID
-from xml.etree import ElementTree
+
+from defusedxml import ElementTree
 
 from .models import GeneratedAsset, VisualBrief
 from .storage import ArtifactStore

@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11,<3.14"
 license = { text = "Apache-2.0" }
 dependencies = [
+  "defusedxml>=0.7.1,<1",
   "fastapi>=0.116,<1",
   "genblaze-core==0.3.4",
   "google-genai>=2.11,<3",
@@ -22,6 +23,7 @@ backblaze = [
   "genblaze-s3==0.3.4",
 ]
 dev = [
+  "bandit>=1.9,<2",
   "detect-secrets>=1.5,<2",
   "httpx>=0.28,<1",
   "pytest>=9.0.3,<10",
