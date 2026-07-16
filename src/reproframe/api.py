@@ -43,6 +43,26 @@ app.mount(
 templates = Jinja2Templates(directory=PACKAGE_ROOT / "templates")
 
 
+@app.middleware("http")
+async def add_security_headers(request: Request, call_next):
+    response = await call_next(request)
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; "
+        "script-src 'self'; "
+        "style-src 'self'; "
+        "connect-src 'self'; "
+        "img-src 'self' data:; "
+        "frame-ancestors 'none'; "
+        "base-uri 'none'; "
+        "form-action 'self'"
+    )
+    response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
+    response.headers["Referrer-Policy"] = "no-referrer"
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    return response
+
+
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request) -> HTMLResponse:
     return templates.TemplateResponse(request=request, name="index.html")

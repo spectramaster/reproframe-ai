@@ -9,10 +9,11 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 RUN useradd --create-home --uid 1000 user
 WORKDIR /home/user/app
 
-COPY --chown=user:user pyproject.toml README.md ./
+COPY --chown=user:user pyproject.toml README.md LICENSE ./
 COPY --chown=user:user src ./src
 
-RUN python -m pip install --no-cache-dir ".[backblaze]"
+RUN python -m pip install --no-cache-dir --upgrade "pip>=26.1.2" \
+    && python -m pip install --no-cache-dir ".[backblaze]"
 RUN mkdir -p /home/user/app/artifacts/runs && chown -R user:user /home/user/app/artifacts
 
 USER user

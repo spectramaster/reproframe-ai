@@ -10,9 +10,10 @@
 
 ReproFrame turns a bounded set of evidence-backed claims into a visual abstract and
 keeps every prompt, attempt, quality check, revision, model decision, and asset hash in
-one replayable manifest. It is being built for the Backblaze Generative Media
-Hackathon using Genblaze for media orchestration and Backblaze B2 as the durable system
-of record.
+one replayable manifest. It was built for the Backblaze Generative Media Hackathon
+using Genblaze for media orchestration and Backblaze B2 as the durable system of
+record. The completed public entry is available on
+[Devpost](https://devpost.com/software/reproframe-ai).
 
 ## Current state
 
